@@ -11,6 +11,8 @@ final class BoxofficeView: UIView {
     let audienceLabel = UILabel()
     private let movieInfoStackView = UIStackView()
     let nextButton = UIButton()
+    let detailButton = UIButton()
+    private let buttonStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,12 +64,25 @@ final class BoxofficeView: UIView {
             $0.backgroundColor = .systemBlue
             $0.layer.cornerRadius = 8
         }
+        
+        detailButton.do {
+            $0.setTitle("상세보기", for: .normal)
+            $0.setTitleColor(.white, for: .normal)
+            $0.backgroundColor = .systemGreen
+            $0.layer.cornerRadius = 8
+        }
+        
+        buttonStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 10
+        }
     }
     
     private func setLayout() {
         movieInfoStackView.addSubViews(rankLabel, movieTitleLabel, audienceLabel)
+        buttonStackView.addSubViews(nextButton, detailButton)
         movieView.addSubview(movieInfoStackView)
-        addSubViews(titleLabel, movieView, movieInfoStackView, nextButton)
+        addSubViews(titleLabel, movieView, movieInfoStackView, buttonStackView)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(200)
@@ -102,10 +117,22 @@ final class BoxofficeView: UIView {
             $0.centerX.equalTo(movieInfoStackView)
         }
         
-        nextButton.snp.makeConstraints {
+        buttonStackView.snp.makeConstraints {
             $0.top.equalTo(movieView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(100)
+            $0.width.equalTo(200)
+            $0.height.equalTo(50)
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.top.leading.equalTo(buttonStackView)
+            $0.width.equalTo(95)
+            $0.height.equalTo(50)
+        }
+        
+        detailButton.snp.makeConstraints {
+            $0.top.trailing.equalTo(buttonStackView)
+            $0.width.equalTo(95)
             $0.height.equalTo(50)
         }
     }

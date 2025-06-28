@@ -20,7 +20,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Global/Resources/Info.plist,
-				Info.plist,
 			);
 			target = 18C4099C2E0D8100009500FB /* ByeBooMovie */;
 		};

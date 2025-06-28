@@ -23,6 +23,7 @@ class BoxofficeViewController: UIViewController {
     
     private func setActions() {
         boxofficeView.nextButton.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        boxofficeView.detailButton.addTarget(self, action: #selector(detailButtonDidTap), for: .touchUpInside)
     }
     
     private func setData() {
@@ -41,6 +42,18 @@ class BoxofficeViewController: UIViewController {
     private func nextButtonDidTap() {
         Task {
             await boxofficeViewModel.handleNextButtonDidTap()
+        }
+    }
+    
+    @objc
+    private func detailButtonDidTap() {
+        let viewModel = boxofficeViewModel.getDetailViewModel()
+        let detailViewController = DetailViewController(detailViewModel: viewModel)
+        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+        
+        Task {
+            await viewModel.handleDetailButtonDidTap()
         }
     }
 }

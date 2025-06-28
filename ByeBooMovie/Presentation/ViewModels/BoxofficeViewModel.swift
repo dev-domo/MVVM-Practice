@@ -4,6 +4,10 @@ final class BoxofficeViewModel {
     
     private let apiService: APIService
     
+    init(apiService: APIService) {
+        self.apiService = apiService
+    }
+    
     // 모델
     var movie: DailyBoxOffice? {
         didSet {
@@ -11,13 +15,9 @@ final class BoxofficeViewModel {
         }
     }
     
-    init(apiService: APIService) {
-        self.apiService = apiService
-    }
-    
     // 인풋
     func handleNextButtonDidTap() async {
-        await apiService.fetchBoxOfficeList() { [weak self] result in
+        await apiService.fetchBoxofficeList() { [weak self] result in
             switch result {
             case .success(let movie) :
                 self?.movie = movie
@@ -67,6 +67,14 @@ final class BoxofficeViewModel {
         return "\(formatted)명"
     }
     
+    var code: String? {
+        return movie?.movieCd
+    }
+    
     // 아웃풋
     var onCompleted: (DailyBoxOffice?) -> Void = { _ in }
+    
+    func getDetailViewModel() -> DetailViewModel {
+        return DetailViewModel(apiService: self.apiService, code: code!)
+    }
 }
