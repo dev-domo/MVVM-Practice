@@ -7,36 +7,26 @@ final class APIService {
     private let key = "2439a9bdfcefc1fae47a3efe66b28d4f"
     private lazy var targetDt = getTargetDate()
     
-    func fetchBoxofficeList(completion: @escaping (Result<DailyBoxOffice, NetworkError>) -> Void) async {
+    func fetchBoxofficeList() async throws -> DailyBoxOffice {
         guard let url = URL(string: "\(boxofficeURLString)?key=\(key)&targetDt=\(targetDt)") else {
-            completion(.failure(NetworkError.notFoundError))
-            return
+            throw NetworkError.notFoundError
         }
         
         let request = URLRequest(url: url)
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if error != nil {
-                completion(.failure(.networkingError))
-                return
-            }
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let movieData = try JSONDecoder().decode(MovieModel.self, from: data)
             
-            guard let safeData = data else {
-                completion(.failure(.dataError))
-                return
+            guard let movie = movieData.boxOfficeResult.dailyBoxOfficeList.randomElement() else {
+                throw NetworkError.dataError
             }
-            
-            do {
-                let movieData = try JSONDecoder().decode(MovieModel.self, from: safeData)
-                guard let movie = movieData.boxOfficeResult.dailyBoxOfficeList.randomElement() else {
-                    completion(.failure(.dataError))
-                    return
-                }
-                completion(.success(movie))
-            } catch {
-                completion(.failure(.parseError))
-            }
-        }.resume()
+            return movie
+        } catch let error as DecodingError {
+            throw NetworkError.parseError
+        } catch {
+            throw NetworkError.networkingError
+        }
     }
     
     func fetchMovieDetail(movieCd: String, completion: @escaping (Result<MovieInfo, NetworkError>) -> Void) async {
