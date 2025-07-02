@@ -13,4 +13,13 @@ struct MovieInfo: Codable {
     let movieNm: String
     let openDt: String
     let showTm: String
+    
+    func toEntity() -> MovieDetailEntity {
+        .init(
+            code: movieCd,
+            name: movieNm,
+            openDate: openDt,
+            runningTime: showTm
+        )
+    }
 }
