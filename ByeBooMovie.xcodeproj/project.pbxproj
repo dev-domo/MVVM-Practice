@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1876EE102E14D97100D598AC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1876EE0F2E14D97100D598AC /* Alamofire */; };
 		18C40A962E0D8CCA009500FB /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 18C40A952E0D8CCA009500FB /* Then */; };
 		18C40A992E0D8CDE009500FB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18C40A982E0D8CDE009500FB /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1876EE102E14D97100D598AC /* Alamofire in Frameworks */,
 				18C40A962E0D8CCA009500FB /* Then in Frameworks */,
 				18C40A992E0D8CDE009500FB /* SnapKit in Frameworks */,
 			);
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				18C40A952E0D8CCA009500FB /* Then */,
 				18C40A982E0D8CDE009500FB /* SnapKit */,
+				1876EE0F2E14D97100D598AC /* Alamofire */,
 			);
 			productName = ByeBooMovie;
 			productReference = 18C4099D2E0D8100009500FB /* ByeBooMovie.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				18C40A942E0D8CCA009500FB /* XCRemoteSwiftPackageReference "Then" */,
 				18C40A972E0D8CDE009500FB /* XCRemoteSwiftPackageReference "SnapKit" */,
+				1876EE0E2E14D97100D598AC /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18C4099E2E0D8100009500FB /* Products */;
@@ -153,6 +157,8 @@
 /* Begin XCBuildConfiguration section */
 		18C409B12E0D8101009500FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 18C4099F2E0D8100009500FB /* ByeBooMovie */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -180,6 +186,8 @@
 		};
 		18C409B22E0D8101009500FB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 18C4099F2E0D8100009500FB /* ByeBooMovie */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -348,6 +356,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1876EE0E2E14D97100D598AC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
 		18C40A942E0D8CCA009500FB /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -367,6 +383,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1876EE0F2E14D97100D598AC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1876EE0E2E14D97100D598AC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		18C40A952E0D8CCA009500FB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 18C40A942E0D8CCA009500FB /* XCRemoteSwiftPackageReference "Then" */;

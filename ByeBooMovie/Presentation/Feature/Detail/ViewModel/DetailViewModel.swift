@@ -19,14 +19,14 @@ final class DetailViewModel {
     
     // 인풋
     func handleDetailButtonDidTap() async {
-        await apiService.fetchMovieDetail(movieCd: code) { [weak self] result in
-            switch result {
-            case .success(let movieDetail) :
-                self?.movieDetail = movieDetail
-            case .failure(let error) :
-                self?.handleError(error)
-            }
-        }
+//        await apiService.fetchMovieDetail(movieCd: code) { [weak self] result in
+//            switch result {
+//            case .success(let movieDetail) :
+//                self?.movieDetail = movieDetail
+//            case .failure(let error) :
+//                self?.handleError(error)
+//            }
+//        }
     }
     
     // 로직

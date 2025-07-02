@@ -15,4 +15,13 @@ struct DailyBoxOffice: Codable {
     let movieNm: String
     let audiAcc: String
     let movieCd: String
+    
+    func toEntity() -> BoxofficeEntity {
+        .init(
+            rank: self.rank,
+            name: self.movieNm,
+            audienceCount: self.audiAcc,
+            code: self.movieCd
+        )
+    }
 }
