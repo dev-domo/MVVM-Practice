@@ -14,6 +14,5 @@ struct DailyBoxOffice: Codable {
     let rank: String
     let movieNm: String
     let audiAcc: String
-    let rankOldAndNew: String
     let movieCd: String
 }

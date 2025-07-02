@@ -1,29 +1,46 @@
 import Foundation
 
-final class BoxofficeViewModel {
+final class BoxofficeViewModel: ViewModelType {
+    
+    struct Input {
+        let handleNexButtonDidTap: () async -> Void
+    }
+    
+    struct Output {
+        var updateUI = Observable<DailyBoxOffice?>(nil)
+    }
     
     private let apiService: APIService
+    private var output: Output?
     
     init(apiService: APIService) {
         self.apiService = apiService
     }
     
-    // 모델
-    var movie: DailyBoxOffice? {
-        didSet {
-            onCompleted(self.movie)
+    func transform(input: Input) -> Output {
+        let output = Output()
+        self.output = output
+        
+        Task {
+            await input.handleNexButtonDidTap()
         }
+        
+        return output
     }
     
-    // 인풋
     func handleNextButtonDidTap() async {
-        await apiService.fetchBoxofficeList() { [weak self] result in
-            switch result {
-            case .success(let movie) :
-                self?.movie = movie
-            case .failure(let error) :
-                self?.handleError(error)
-            }
+        do {
+            let movie = try await apiService.fetchBoxofficeList()
+            
+            let data = DailyBoxOffice(
+                rank: movie.rank,
+                movieNm: movie.movieNm,
+                audiAcc: formatAudience(movie.audiAcc),
+                movieCd: movie.movieCd
+            )
+            output?.updateUI.data = data
+        } catch {
+            output?.updateUI.data = nil
         }
     }
     
@@ -40,18 +57,8 @@ final class BoxofficeViewModel {
         }
     }
     
-    // 로직
-    var rank: String? {
-        return movie?.rank
-    }
-    
-    var title: String? {
-        return movie?.movieNm
-    }
-    
-    var audience: String? {
-        guard let numberString = movie?.audiAcc else { return nil }
-        guard let number = Int(numberString) else { return nil }
+    func formatAudience(_ audience: String) -> String {
+        guard let number = Int(audience) else { return "" }
         
         if number >= 10_000 {
             let unit = Double(number) / 10_000.0
@@ -62,19 +69,12 @@ final class BoxofficeViewModel {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         guard let formatted = numberFormatter.string(from: NSNumber(value: number)) else {
-            return nil
+            return ""
         }
         return "\(formatted)명"
     }
     
-    var code: String? {
-        return movie?.movieCd
-    }
-    
-    // 아웃풋
-    var onCompleted: (DailyBoxOffice?) -> Void = { _ in }
-    
-    func getDetailViewModel() -> DetailViewModel {
-        return DetailViewModel(apiService: self.apiService, code: code!)
+    func getDetailViewModel(from code: String) -> DetailViewModel {
+        return DetailViewModel(apiService: self.apiService, code: code)
     }
 }
