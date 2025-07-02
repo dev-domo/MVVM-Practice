@@ -5,7 +5,6 @@ class BoxofficeViewController: UIViewController {
     
     private let boxofficeView = BoxofficeView()
     private let boxofficeViewModel = BoxofficeViewModel(apiService: APIService())
-    private var output: BoxofficeViewModel.Output?
     private var movieCode: String?
     
     override func loadView() {
@@ -35,9 +34,9 @@ class BoxofficeViewController: UIViewController {
             }
         )
         
-        output = boxofficeViewModel.transform(input: input)
+        boxofficeViewModel.output = boxofficeViewModel.transform(input: input)
         
-        output?.updateUI.onChange = { [weak self] data in
+        boxofficeViewModel.output?.updateUI.onChange = { [weak self] data in
             guard let data = data else {
                 return
             }

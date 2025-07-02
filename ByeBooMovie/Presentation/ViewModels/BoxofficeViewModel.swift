@@ -11,7 +11,7 @@ final class BoxofficeViewModel: ViewModelType {
     }
     
     private let apiService: APIService
-    private var output: Output?
+    var output: Output?
     
     init(apiService: APIService) {
         self.apiService = apiService
