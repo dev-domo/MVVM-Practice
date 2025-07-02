@@ -44,7 +44,7 @@ final class BoxofficeViewModel: ViewModelType {
         }
     }
     
-    private func handleError(_ error: NetworkError) {
+    private func handleError(_ error: ByebooMovieError) {
         switch error {
         case .dataError:
             print("데이터 에러")

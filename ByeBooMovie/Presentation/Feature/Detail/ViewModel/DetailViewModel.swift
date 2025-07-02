@@ -57,7 +57,7 @@ final class DetailViewModel {
     // 아웃풋
     var onCompleted: (MovieInfo?) -> Void = { _ in }
     
-    private func handleError(_ error: NetworkError) {
+    private func handleError(_ error: ByebooMovieError) {
         switch error {
         case .dataError:
             print("데이터 에러")
