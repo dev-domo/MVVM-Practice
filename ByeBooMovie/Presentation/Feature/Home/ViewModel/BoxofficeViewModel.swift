@@ -11,10 +11,9 @@ final class BoxofficeViewModel: ViewModelType {
         let result: AnyPublisher<Result<BoxofficeEntity, ByebooMovieError>, Never>
     }
     
+    private let boxofficeUseCase: BoxofficeUseCase
     private var output: PassthroughSubject<Result<BoxofficeEntity, ByebooMovieError>, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
-    
-    private let boxofficeUseCase: BoxofficeUseCase
     
     init(boxofficeUseCase: BoxofficeUseCase) {
         self.boxofficeUseCase = boxofficeUseCase
@@ -50,5 +49,13 @@ final class BoxofficeViewModel: ViewModelType {
             return ""
         }
         return "\(formatted)명"
+    }
+    
+    func getDetailViewModel(movieCode: String) -> MovieDetailViewModel {
+        let viewModel = MovieDetailViewModel(
+            movieDetailUseCase: MovieDetailUseCase(movieDetailRepository: MovieDetailRepository(network: APIService())),
+            movieCode: movieCode
+        )
+        return viewModel
     }
 }

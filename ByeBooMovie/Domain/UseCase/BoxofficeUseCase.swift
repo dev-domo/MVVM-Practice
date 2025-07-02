@@ -7,11 +7,11 @@
 
 import Combine
 
-protocol UseCase {
+protocol BoxofficeUseCaseInterface {
     func fetchBoxoffice() -> AnyPublisher<Result<BoxofficeEntity, ByebooMovieError>, Never>
 }
 
-struct BoxofficeUseCase: UseCase {
+struct BoxofficeUseCase: BoxofficeUseCaseInterface {
     let boxofficeRepository: BoxofficeInterface
     
     func fetchBoxoffice() -> AnyPublisher<Result<BoxofficeEntity, ByebooMovieError>, Never> {

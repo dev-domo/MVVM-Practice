@@ -2,7 +2,7 @@ import SnapKit
 import Then
 import UIKit
 
-final class DetailView: UIView {
+final class MovieDetailView: UIView {
     
     let nameLabel = UILabel()
     let dateLabel = UILabel()

@@ -6,11 +6,11 @@ struct MovieModel: Codable {
 
 // MARK: - BoxOfficeResult
 struct BoxOfficeResult: Codable {
-    let dailyBoxOfficeList: [DailyBoxOffice]
+    let dailyBoxOfficeList: [BoxofficeDto]
 }
 
 // MARK: - DailyBoxOffice
-struct DailyBoxOffice: Codable {
+struct BoxofficeDto: Codable {
     let rank: String
     let movieNm: String
     let audiAcc: String

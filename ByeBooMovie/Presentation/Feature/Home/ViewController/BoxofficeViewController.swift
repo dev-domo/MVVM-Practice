@@ -34,7 +34,6 @@ class BoxofficeViewController: UIViewController {
     
     private func setData() {
         let input = BoxofficeViewModel.Input(handleNexButtonDidTap: input.eraseToAnyPublisher())
-        
         let output = boxofficeViewModel.transform(input: input)
         
         output.result
@@ -66,15 +65,11 @@ class BoxofficeViewController: UIViewController {
     
     @objc
     private func detailButtonDidTap() {
-//        guard let code = movieCode else { return }
-//        
-//        let viewModel = boxofficeViewModel.getDetailViewModel(from: code)
-//        let detailViewController = DetailViewController(detailViewModel: viewModel)
-//        
-//        self.navigationController?.pushViewController(detailViewController, animated: true)
-//        
-//        Task {
-//            await viewModel.handleDetailButtonDidTap()
-//        }
+        guard let code = movieCode else { return }
+        
+        let viewModel = boxofficeViewModel.getDetailViewModel(movieCode: code)
+        let detailViewController = MovieDetailViewController(detailViewModel: viewModel)
+        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
