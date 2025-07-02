@@ -9,7 +9,7 @@ final class APIService {
     
     func fetchBoxofficeList() async throws -> DailyBoxOffice {
         guard let url = URL(string: "\(boxofficeURLString)?key=\(key)&targetDt=\(targetDt)") else {
-            throw NetworkError.notFoundError
+            throw ByebooMovieError.notFoundError
         }
         
         let request = URLRequest(url: url)
@@ -19,19 +19,19 @@ final class APIService {
             let movieData = try JSONDecoder().decode(MovieModel.self, from: data)
             
             guard let movie = movieData.boxOfficeResult.dailyBoxOfficeList.randomElement() else {
-                throw NetworkError.dataError
+                throw ByebooMovieError.dataError
             }
             return movie
         } catch let error as DecodingError {
-            throw NetworkError.parseError
+            throw ByebooMovieError.parseError
         } catch {
-            throw NetworkError.networkingError
+            throw ByebooMovieError.networkingError
         }
     }
     
-    func fetchMovieDetail(movieCd: String, completion: @escaping (Result<MovieInfo, NetworkError>) -> Void) async {
+    func fetchMovieDetail(movieCd: String, completion: @escaping (Result<MovieInfo, ByebooMovieError>) -> Void) async {
         guard let url = URL(string: "\(movieURLString)?key=\(key)&movieCd=\(movieCd)") else {
-            completion(.failure(NetworkError.notFoundError))
+            completion(.failure(ByebooMovieError.notFoundError))
             return
         }
         
